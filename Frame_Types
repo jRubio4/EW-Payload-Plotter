@@ -1,0 +1,74 @@
+Byte, Header, Description/Example, Comments
+0-7, Device IMEI, 359205101696583, 
+8, Frame count, Increments for every message sent, 
+9-12, FW identifier, Internal use – firmware build version identifier,
+13, No. Sat | GPS state,	Water Rat:(High nibble) Number of GPS satellites seen. (Low nibble) GPS fix state. Analog: Unused,
+14, Payload version	Water Rat, ,
+15, Alarm flags	Byte holds alarm flags in bit-positions.	
+			
+		Analog (WLM, PC, RG, …):		
+		Bit 7 - rebooted event	
+		6 - retry message	
+		5 - analog read error	
+		4 - commission message	
+		3 - heart-beat message	
+		2 - voltage drop event	
+		1 - threshold event	
+		Bit 0 - threshold event	
+			
+			
+			
+		Water Rat:	
+		Bit 5 - commission message	
+		4 - retry message	
+		3 - heart-beat message	
+		2 - (stuck)	
+		1 - (dropped)	
+		Bit 0 - titled event
+
+Water Rat			
+16	Tilt angle	1/10th of degrees (10.5 deg = 105)	
+17-18	Battery	Battery voltage in millivolts. Eg. 3600 = 3.6V	
+19-20	Temperature	Temperature in 100th degrees. Eg. 2550 = 25.5C	Of nRF chip, not outside
+21-24	GPS Lat	Decimal coordinates x 10000 (big-endian)	
+25-28	GPS Lon	Decimal coordinates x 10000 (big-endian) 	
+29	RSRP	LTE signal power	
+30	RSRQ	LTE signal quality	
+	
+
+Analog (WLM, RG, ..)			
+16	Digital pin event & state
+17-18	Battery	Battery voltage in millivolts. Eg. 3600 = 3.6V	
+19-20	Temperature	Temperature in 100th degrees. Eg. 2550 = 25.5C	Of nRF chip, not outside
+21-24	GPS Lat	Not used	
+25-28	GPS Lon	Not used	
+29	RSRP	LTE signal power	
+30	RSRQ	LTE signal quality	
+31-32	Analog value	WLM level, eFence volts, etc.	
+			
+		WLM, etc: millivolts 	
+			
+		EFS: volts	
+33-34	Pulse count	Rain gauge	
+			
+SDI12			
+16-17	Battery	Battery voltage in millivolts. Eg. 3600 = 3.6V	
+18-19	Temperature	Temperature in degrees. Eg. 25 = 25C	
+20	RSRP	LTE signal power	
+21	RSRQ	LTE signal quality	
+22	No. of SDI12 measurements		
+23	Measurement #1 Header	measurement num + data-point num	
+			
+		eg. 0x14 = measurement #1, 4 data-points	
+…	Data point 1 (4 bytes)		
+…	Data point n (4 bytes)		
+…	Measurement #2 Header		
+…	Data point n (4 bytes)		
+			
+People Counter
+16-17	Battery	Battery voltage in millivolts. Eg. 3600 = 3.6V	
+18-19	Temperature	Temperature in 100th degrees. Eg. 2550 = 25.5C	Of nRF chip, not outside
+20	RSRP	LTE signal power	
+21	RSRQ	LTE signal quality	
+22-23	Counter 1		
+24-25	Counter 2		
